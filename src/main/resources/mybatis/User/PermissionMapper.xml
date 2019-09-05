@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cp.stuspringbootdemo.dao.PermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.cp.stuspringbootdemo.domain.Permission" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="permission" property="permission" jdbcType="VARCHAR" />
+    <result column="role_id" property="roleid" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="addPer" parameterType="com.cp.stuspringbootdemo.domain.Permission" >
+    insert into permission(id,permission,role_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{permission,jdbcType=VARCHAR},#{roleid,jdbcType=INTEGER}
+      )
+  </insert>
+
+  <update id="updPer" parameterType="com.cp.stuspringbootdemo.domain.Permission">
+    update permission
+    <set >
+      <if test="permission != null" >
+        permission = #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid !=null">
+        role_id =#{roleid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selPer" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id,permission,role_id  from permission
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delPer" parameterType="java.lang.Integer" >
+    delete from permission
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+</mapper>
